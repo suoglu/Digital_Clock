@@ -1,2 +1,2 @@
-# Digital_Clock
+# Digital Clock
 Verilog code for a digital clock
