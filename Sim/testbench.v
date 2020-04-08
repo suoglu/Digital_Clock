@@ -1,6 +1,6 @@
 /* Last sim :
  *  clockWork: 5.4.2020 with icarus verilog
- *  date_module: 8.42020 with icarus verilog
+ *  date_module: 8.4.2020 with icarus verilog
 */
 `timescale 1ns / 1ps
 
