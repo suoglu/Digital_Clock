@@ -1,9 +1,11 @@
 module alarm(clk, rst, en_in, time_in, time_set_in, set_time, ring, end_ring);
     input clk, rst, set_time, end_ring, en_in;
-    input [16:0] time_set_in, time_in;
     output reg ring;
 
-    reg [16:0] time_alarm;
+    //Alarm is not sensetive to seconds
+    input [10:0] time_set_in, time_in;
+    reg [10:0] time_alarm;
+    
     reg en;
 
     //set alarm time
@@ -31,7 +33,7 @@ module alarm(clk, rst, en_in, time_in, time_set_in, set_time, ring, end_ring);
                 begin
                     if(en)
                         begin
-                            //while ringing: stop if snooze or end ring pressed
+                            //while ringing: stop if  end ring pressed
                             //otherwise start ringing when time is equal to snooze
                             ring <= (ring) ? (~end_ring) : (time_alarm == time_in);
                         end
