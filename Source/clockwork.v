@@ -1,4 +1,14 @@
-//Yigit Suoglu
+/* ------------------------------------------------ *
+ * Title       : Clockwork                          *
+ * Project     : Digital Clock                      *
+ * ------------------------------------------------ *
+ * File        : clockwork.v                        *
+ * Author      : Yigit Suoglu                       *
+ * Last Edit   : 05/04/2020                         *
+ * ------------------------------------------------ *
+ * Description : Time keeping module for a clock    *
+ * ------------------------------------------------ */
+
 module clockWork(clk_1hz, time_in, time_out, time_ow);
   input clk_1hz, time_ow; //1 Hz clock (clock), Time overwrite (asynchronous reset)
   //Time signal format: hhhhh_mmmmmm_ssssss
@@ -10,7 +20,6 @@ module clockWork(clk_1hz, time_in, time_out, time_ow);
   wire [4:0] hour_in;
   reg [5:0] sec_reg, min_reg;
   reg [4:0] hour_reg;
-
 
   //separation and combination of time signals
   assign {hour_in, min_in, sec_in} = time_in;
@@ -60,5 +69,4 @@ module clockWork(clk_1hz, time_in, time_out, time_ow);
             end
         end
     end  
-
 endmodule
