@@ -1,1 +1,20 @@
+# For macOS systems
 .DS_Store
+
+# Vivado directory
+*vivado*
+
+# For icarus Verilog
+*.out
+*.vcd
+
+# Diagrams
+*.drawio
+
+# Any tmp
+*tmp*
+WIP*
+
+#Text editor configs
+*.geany
+.vscode
