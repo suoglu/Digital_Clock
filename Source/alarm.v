@@ -13,7 +13,7 @@ module alarm(clk, rst, en_in, time_in, time_set_in, set_time, ring, end_ring);
   input clk, rst, set_time, end_ring, en_in;
   output reg ring;
 
-  //Alarm is not sensetive to seconds
+  //Alarm is not sensitive to seconds
   input [10:0] time_set_in, time_in;
   reg [10:0] time_alarm;
     

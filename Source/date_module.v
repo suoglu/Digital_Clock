@@ -9,23 +9,23 @@
  * Description : Keep date with respect to hour     *
  * ------------------------------------------------ */
 
-module date_module(clk, hour_in, date_in, date_out, date_ow);
+module date_module#(parameter YEARRES = 12)(clk, hour_in, date_in, date_out, date_ow);
   input clk, date_ow; //System clock, Date overwrite (asynchronous reset)
   //Time signal format: hhhhh_mmmmmm_ssssss
   input [4:0] hour_in; //hour data
 
   //Date signal format: ddddd_mmmm_yyyyyyyyyyyy
   //Year signal can be adjusted to count from another refence than 0, e.g. 1900, to reduce bit size
-  input [20:0] date_in; //date input
-  output [20:0] date_out; //main output
+  input [(YEARRES+8):0] date_in; //date input
+  output [(YEARRES+8):0] date_out; //main output
 
   //separated date signals to respective meaning
   wire [4:0] day_in;
   wire [3:0] month_in;
-  wire [11:0] year_in;
+  wire [(YEARRES-1):0] year_in;
   reg [4:0] day_reg, day_reg_del; //day_reg_del: delayed signal
   reg [3:0] month_reg, month_reg_del; //month_reg_del: delayed signal
-  reg [11:0] year_reg;
+  reg [(YEARRES-1):0] year_reg;
 
   reg [4:0] hour_reg; //Store previous hour data
   reg new_day; //Detect new day
@@ -62,7 +62,7 @@ module date_module(clk, hour_in, date_in, date_out, date_ow);
         begin
           if(new_year)
             begin
-              year_reg <= year_reg + 12'd1; 
+              year_reg <= year_reg +{{(YEARRES-1){1'd0}},1'd1}; 
             end
         end
     end     
@@ -104,14 +104,14 @@ module date_module(clk, hour_in, date_in, date_out, date_ow);
                      *  else if (year is not divisible by 400) then (it is a common year)
                      *  else (it is a leap year)
                      */
-                    casex(year_reg)
-                    12'b??????????00: //only divisible by 4 rule is considered for now
+                    if(year_reg[1:0] == 2'b00)
                       begin
                         day_reg <= (day_reg == 5'd29) ? 5'd1 : (day_reg + 5'd1);  
                       end
-                        //To Improve: add cases for other rules, case structure should be changed 
-                      default: day_reg <= (day_reg == 5'd28) ? 5'd1 : (day_reg + 5'd1);
-                    endcase
+                    else
+                      begin
+                         day_reg <= (day_reg == 5'd28) ? 5'd1 : (day_reg + 5'd1);
+                      end
                   end
                 4'b???0: //even months
                   begin
