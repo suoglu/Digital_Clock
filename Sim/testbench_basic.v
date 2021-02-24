@@ -10,7 +10,7 @@
  * ------------------------------------------------ */
 `timescale 1ns / 1ps
 
-module tb();
+module tb_bsc();
     reg clk_clock, time_ow, clk_date, date_ow;
     reg [16:0] time_in;
     reg [4:0] hour_in;

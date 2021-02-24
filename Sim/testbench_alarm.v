@@ -11,7 +11,7 @@
 
 `timescale 1ns / 1ps
 
-module tb();
+module tb_alrm();
 
     reg clk, rst, en_in, end_ring, set_time;
     wire [10:0] time_in, time_set_in;
