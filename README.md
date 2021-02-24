@@ -7,10 +7,12 @@
     1. Clockwork
     2. Date module
     3. Alarm module
+    4. 24 hour to 12 hour converter
 3. Port Descriptions
     1. Clockwork
     2. Date module
     3. Alarm module
+    4. 24 hour to 12 hour converter
 4. Simulation
 5. Test
 6. Status
@@ -28,9 +30,10 @@ This project is a digital clock with date function. Currently works with 24h tim
 
 Functionalities are seperated into different files, follows as:
 
-- [`clockwork.v`](https://github.com/suoglu/Digital_Clock/blob/master/Source/clockwork.v): Hours, Minutes and Seconds  
-- [`date_module.v`](https://github.com/suoglu/Digital_Clock/blob/master/Source/date_module.v): Days, Months and Years
-- [`alarm.v`](https://github.com/suoglu/Digital_Clock/blob/master/Source/alarm.v): Alarm with an enable control
+- [`clockwork.v`](Source/clockwork.v): Hours, Minutes and Seconds  
+- [`date_module.v`](Source/date_module.v): Days, Months and Years
+- [`alarm.v`](Source/alarm.v): Alarm with an enable control
+- [`h24toh12.v`](Source/h24toh12.v): 24 hour to 12 hour converter
 
 **`clockWork`:**
 
@@ -49,6 +52,10 @@ Date is kept in 9 + year bits. Year bits determined via parameter `YEARRES`. Mos
 This module provides an "add-on" alarm. Alarm can be enabled via `en_in`. Signal `ring` is set when alarm is ring. And it is kept high until `end_ring` is set.
 
 Alarm is not sensitive to the seconds.
+
+**`h24Toh12`:**
+
+Combinational "add-on" module to convert 24 hour format to 12 hour format.
 
 ## Port Descriptions
 
@@ -86,16 +93,27 @@ Alarm is not sensitive to the seconds.
 | `ring` |  0  | 1 | Alarm signal |
 | `end_ring` |  I  | 1 | Stop Alarm |
 
+**`h24Toh12`:**
+
+|   Port   |  Type | Width |  Description |
+| :------: | :----: | :----: |  ------    |
+| `hour24` |  I  | 5 | Hour in 24 hour format |
+| `nAM_PM` |  O  | 1 | AM/PM indicator, High when PM |
+| `hour12` |  O  | 4 | Hour in 12 hour format |
+
 ## Simulation
 
-[`testbench.v`](https://github.com/suoglu/Digital_Clock/blob/master/Sim/testbench.v) is used to simulate [`clockwork.v`](https://github.com/suoglu/Digital_Clock/blob/master/Source/clockwork.v) and [`date_module.v`](https://github.com/suoglu/Digital_Clock/blob/master/Source/date_module.v)
+[`testbench_basic.v`](Sim/testbench_basic.v) is used to simulate [`clockwork.v`](Source/clockwork.v) and [`date_module.v`](Source/date_module.v)
 
-[`testbench_alarm.v`](https://github.com/suoglu/Digital_Clock/blob/master/Sim/testbench_alarm.v) is used to simulate [`alarm.v`](https://github.com/suoglu/Digital_Clock/blob/master/Source/alarm.v)
+[`testbench_alarm.v`](testbench_alarm.v) is used to simulate [`alarm.v`](Source/alarm.v)
+
+[`testbench_alarm.v`](testbench_h24h12.v) is used to simulate [`h24toh12.v`](Source/h24toh12.v)
 
 ## Status
 
 **Last simulation date:**
 
-- [`clockwork.v`](https://github.com/suoglu/Digital_Clock/blob/master/Source/clockwork.v): 5 April 2020 with Icarus Verilog  
-- [`date_module.v`](https://github.com/suoglu/Digital_Clock/blob/master/Source/date_module.v): 8 April 2020 with Icarus Verilog
-- [`alarm.v`](https://github.com/suoglu/Digital_Clock/blob/master/Source/alarm.v): 28 April 2020 with Icarus Verilog
+- [`clockwork.v`](Source/clockwork.v): 5 April 2020 with Icarus Verilog  
+- [`date_module.v`](Source/date_module.v): 8 April 2020 with Icarus Verilog
+- [`alarm.v`](Source/alarm.v): 28 April 2020 with Icarus Verilog
+- [`h24toh12.v`](Source/h24toh12.v): 24 February 2021 with Icarus Verilog
