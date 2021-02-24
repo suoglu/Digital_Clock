@@ -1,6 +1,14 @@
-/* Last sim :
- *  alarm: 28.4.2020 with icarus verilog
-*/
+/* ------------------------------------------------ *
+ * Title       : Alarm Module Simulation            *
+ * Project     : Digital Clock                      *
+ * ------------------------------------------------ *
+ * File        : testbench_alarm.v                  *
+ * Author      : Yigit Suoglu                       *
+ * Last Edit   : 28/04/2020                         *
+ * ------------------------------------------------ *
+ * Description : Simulation for alarm module        *
+ * ------------------------------------------------ */
+
 `timescale 1ns / 1ps
 
 module tb();

@@ -1,7 +1,13 @@
-/* Last sim :
- *  clockWork: 5.4.2020 with icarus verilog
- *  date_module: 8.4.2020 with icarus verilog
-*/
+/* ------------------------------------------------ *
+ * Title       : Basic Modules Simulation           *
+ * Project     : Digital Clock                      *
+ * ------------------------------------------------ *
+ * File        : testbench.v                        *
+ * Author      : Yigit Suoglu                       *
+ * Last Edit   : 08/04/2020                         *
+ * ------------------------------------------------ *
+ * Description : Simulation for basic modules       *
+ * ------------------------------------------------ */
 `timescale 1ns / 1ps
 
 module tb();
