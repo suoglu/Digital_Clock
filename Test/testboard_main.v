@@ -6,13 +6,13 @@
  * Author      : Yigit Suoglu                       *
  * Last Edit   : /03/2021                         *
  * ------------------------------------------------ */
- `include "Source/clockwork.v"
- `include "Source/alarm.v"
- `include "Source/date_module.v"
- `include "Source/h24toh12.v"
- `include "Test/ssd_util.v"
- `include "Test/btn_debouncer.v"
- `include "Test/hextoDec.v"
+//  `include "Source/clockwork.v"
+//  `include "Source/alarm.v"
+//  `include "Source/date_module.v"
+//  `include "Source/h24toh12.v"
+//  `include "Test/ssd_util.v"
+//  `include "Test/btn_debouncer.v"
+//  `include "Test/hextoDec.v"
 
 module board(
   input clk,
@@ -65,6 +65,7 @@ module board(
 
   //some i/o routing
   assign h12Mode = sw[15];
+  assign ssdMode = sw[14:12];
   assign led[15:14] = stepCounter;
   assign led[13:12] = state;
   assign led[11:0] = 0;
@@ -189,19 +190,6 @@ module board(
               endcase
               date_buff[20:17] <= 4'd0;
             end
-        end
-    end
-
-  //stepCounter to get data
-  always@(posedge clk)
-    begin
-      if(inIDLE)
-        begin
-          stepCounter <= 2'd0;
-        end
-      else
-        begin
-          stepCounter <= stepCounter + {1'b0, btnAny};
         end
     end
 
