@@ -202,4 +202,3 @@ set_property PACKAGE_PIN U17 [get_ports btnD]
 ## Configuration options, can be used for all designs
 set_property CONFIG_VOLTAGE 3.3 [current_design]
 set_property CFGBVS VCCO [current_design]
-

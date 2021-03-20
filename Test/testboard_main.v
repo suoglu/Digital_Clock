@@ -20,7 +20,7 @@ module board(
   input btnU, //Set Time
   input btnL, //Set Date
   input btnR, //Set Alarm
-  input btnD, //Empty
+  input btnD, //end_ring
   input [15:0] sw,
   output [15:0] led,
   output [6:0] seg,
@@ -65,10 +65,12 @@ module board(
 
   //some i/o routing
   assign h12Mode = sw[15];
-  assign ssdMode = sw[14:12];
+  assign ssdMode = (inIDLE) ? sw[14:12] : INSW;
+  assign en_in = sw[11];
   assign led[15:14] = stepCounter;
   assign led[13:12] = state;
-  assign led[11:0] = 0;
+  assign led[11:1] = 0;
+  assign led[0] = ring;
 
   //State transactions & decode states
   always@(posedge clk or posedge rst)
@@ -168,7 +170,7 @@ module board(
     begin
       if(rst)
         begin
-          alarm_buff <= 17'd0;
+          date_buff <= {7'd21, 4'd1, 6'd22};
         end
       else
         begin
@@ -203,7 +205,7 @@ module board(
   debouncer debounce2(clk, rst, btnR, btnSetAlarm);
   debouncer debounce3(clk, rst, btnD, btnOther);
   assign btnAny = btnSetTime | btnSetDate | btnSetAlarm | btnOther;
-
+  assign end_ring = btnOther;
   //Display data control
   always@*
     begin
@@ -226,12 +228,12 @@ module board(
         YEAR:
           begin
             ssdDis = {4'd0, year_out};
-            ssdDigitEn = 4'b1111;
+            ssdDigitEn = 4'b0011;
           end
         INSW:
           begin
             ssdDis = sw;
-            ssdDigitEn = 4'b1111;
+            ssdDigitEn = 4'b0011;
           end
         default:
           begin
