@@ -109,11 +109,50 @@ Combinational "add-on" module to convert 24 hour format to 12 hour format.
 
 [`testbench_alarm.v`](testbench_h24h12.v) is used to simulate [`h24toh12.v`](Source/h24toh12.v)
 
+## Test
+
+### Test #1 (on 20 March 2021)
+
+Modules in [`clockwork.v`](Source/clockwork.v), [`date_module.v`](Source/date_module.v), [`alarm.v`](Source/alarm.v) and [`h24toh12.v`](Source/h24toh12.v) are tested with [`testboard_main.v`](Test/testboard_main.v) and [`Basys3.xdc`](Test/Basys3.xdc). Special cases and a few examples of orinary cases are tested.
+
+**States:**
+
+Test board have four states; IDLE, get date, get time and get alarm. In IDLE state is the default state where system works. Other three states used to change/set time and date information.
+
+**I/O:**
+
+Eight rightmost switches are reserved to get data from user. How many switches actually used depends on entered data. Eight leftmost switches reserved for configurations. Leftmost switch (`SW[15]`) is used to control hour format, 12h or 24h. Following three switches (`sw[14:12]`) used to select seven segment display (ssd) data in IDLE state. In other states, values if data switches (`sw[7:0]`) are shown. Table below shows mapping of `sw[14:12]` values to display content. Following switch (`SW[11]`) is used to enable alarm.
+
+| `sw[14:12]` value | Displayed Content | Active Digits |
+| :------: | :----: | :----: |
+| 0 | Seconds |  Right Half  |
+| 1 |  Hours:Minutes  |  All  |
+| 2 |  Day:Month  |  All  |
+| 3 |  Year  |  Right Half  |
+| 4 |  Switch val  |  Right Half  |
+| ? |  Empty  |  None  |
+
+Dots on the ssd is used to indicate  AM/PM.
+
+LEDs are used to show status information. Two leftmost LEDs show `stepCounter` (will be explaned later), following two LEDs show state informarion. Rightmost LED is used as alarm. Remaining LEDs tied to ground.
+
+In IDLE mode all buttons except center and down one used to change the state of the test board. Center button is reset and down button used to silence alarm. Up button used to set time, left button used to set date and right button used to set alarm time. While getting data, any button (other than center) will advence to next step. Which part of the data is gathered depends on which state and step are we. Table below shows gathered data:
+
+| `stepCounter` | `getTIME` | `getDATE` | `setALRM` |
+| :------: | :----: | :----: | :----: |
+| 0 | Hour (5 bits) | Year (7 bits) | Hour (5 bits) |
+| 1 | Minute (6 bits) | Month (4 bits) | Minute (6 bits) |
+| 2 | - | Day (6 bits) | - |
+
+Anything that is not taken from the switches conneced to 0.
+
 ## Status
 
-**Last simulation date:**
+**Last Simulation:**
 
 - [`clockwork.v`](Source/clockwork.v): 5 April 2020 with Icarus Verilog  
 - [`date_module.v`](Source/date_module.v): 8 April 2020 with Icarus Verilog
 - [`alarm.v`](Source/alarm.v): 28 April 2020 with Icarus Verilog
 - [`h24toh12.v`](Source/h24toh12.v): 24 February 2021 with Icarus Verilog
+
+**Last Test:** 20 March 2021, on [Digilent Basys 3](https://reference.digilentinc.com/reference/programmable-logic/basys-3/reference-manual).
