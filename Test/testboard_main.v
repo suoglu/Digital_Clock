@@ -4,7 +4,7 @@
  * ------------------------------------------------ *
  * File        : testboard_main.v                   *
  * Author      : Yigit Suoglu                       *
- * Last Edit   : /03/2021                         *
+ * Last Edit   : 20/03/2021                         *
  * ------------------------------------------------ */
 //  `include "Source/clockwork.v"
 //  `include "Source/alarm.v"
@@ -170,7 +170,7 @@ module board(
     begin
       if(rst)
         begin
-          date_buff <= {7'd21, 4'd1, 6'd22};
+          date_buff <= {6'd22, 4'd1, 12'd21};
         end
       else
         begin
@@ -179,18 +179,18 @@ module board(
               case(stepCounter)
                 2'd0: //Year
                   begin
-                    date_buff[16:10] <= sw[6:0];
+                    date_buff[6:0] <= sw[6:0];
                   end
                 2'd1: //Month
                   begin
-                    date_buff[9:6] <= sw[3:0];
+                    date_buff[15:12] <= sw[3:0];
                   end
                 2'd2: //Day
                   begin
-                    date_buff[5:0] <= sw[5:0];
+                    date_buff[20:16] <= sw[5:0];
                   end
               endcase
-              date_buff[20:17] <= 4'd0;
+              date_buff[11:7] <= 4'd0;
             end
         end
     end

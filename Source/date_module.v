@@ -4,7 +4,7 @@
  * ------------------------------------------------ *
  * File        : date_module.v                      *
  * Author      : Yigit Suoglu                       *
- * Last Edit   : 09/04/2020                         *
+ * Last Edit   : 20/03/2021                         *
  * ------------------------------------------------ *
  * Description : Keep date with respect to hour     *
  * ------------------------------------------------ */
@@ -113,13 +113,21 @@ module date_module#(parameter YEARRES = 12)(clk, hour_in, date_in, date_out, dat
                          day_reg <= (day_reg == 5'd28) ? 5'd1 : (day_reg + 5'd1);
                       end
                   end
-                4'b???0: //even months
+                4'b0??0: //even months; April and June
                   begin
                     day_reg <= (day_reg == 5'd30) ? 5'd1 : (day_reg + 5'd1);
                   end
-                4'b???1: //odd months
+                4'b0??1: //odd months; January, March, May and July
                   begin
                     day_reg <= (day_reg == 5'd31) ? 5'd1 : (day_reg + 5'd1);
+                  end
+                4'b1??0: //even months; August, October, December
+                  begin
+                    day_reg <= (day_reg == 5'd31) ? 5'd1 : (day_reg + 5'd1);
+                  end
+                4'b1??1: //odd months; September, November
+                  begin
+                    day_reg <= (day_reg == 5'd30) ? 5'd1 : (day_reg + 5'd1);
                   end
               endcase
             end
