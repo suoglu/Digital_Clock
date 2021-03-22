@@ -146,6 +146,27 @@ In IDLE mode all buttons except center and down one used to change the state of 
 
 Anything that is not taken from the switches conneced to 0.
 
+**Tested Cases**:
+
+- [`clockwork.v`](Source/clockwork.v):
+  - Seconds in Minute
+  - New Minute
+  - New Hour
+  - New Day
+- [`date_module.v`](Source/date_module.v):
+  - New Year
+  - Ordinary February
+  - Special Case February
+  - End of a random month with 30 days before July
+  - End of a random month with 31 days before July
+  - End of a random month with 30 days after August
+  - End of a random month with 31 days after August
+- [`alarm.v`](Source/alarm.v):
+  - Tested for one case when enabled and one disabled.
+- [`h24toh12.v`](Source/h24toh12.v):
+  - Two random cases for both AM and PM tested.
+  - Midnight and Noon are tested.
+
 ## Status
 
 **Last Simulation:**
