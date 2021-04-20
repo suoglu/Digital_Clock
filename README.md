@@ -111,7 +111,7 @@ Combinational "add-on" module to convert 24 hour format to 12 hour format.
 
 ## Test
 
-### Test #1 (on 20 March 2021)
+### Test 1 (on 20 March 2021)
 
 Modules in [`clockwork.v`](Source/clockwork.v), [`date_module.v`](Source/date_module.v), [`alarm.v`](Source/alarm.v) and [`h24toh12.v`](Source/h24toh12.v) are tested with [`testboard_main.v`](Test/testboard_main.v) and [`Basys3.xdc`](Test/Basys3.xdc). Special cases and a few examples of orinary cases are tested.
 
