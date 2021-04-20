@@ -2,14 +2,14 @@
  * Title       : Date Module                        *
  * Project     : Digital Clock                      *
  * ------------------------------------------------ *
- * File        : date_module.v                      *
+ * File        : clockcalendar.v                    *
  * Author      : Yigit Suoglu                       *
  * Last Edit   : 20/03/2021                         *
  * ------------------------------------------------ *
  * Description : Keep date with respect to hour     *
  * ------------------------------------------------ */
 
-module date_module#(parameter YEARRES = 12)(clk, hour_in, date_in, date_out, date_ow);
+module clockCalendarHex#(parameter YEARRES = 12)(clk, hour_in, date_in, date_out, date_ow);
   input clk, date_ow; //System clock, Date overwrite (asynchronous reset)
   //Time signal format: hhhhh_mmmmmm_ssssss
   input [4:0] hour_in; //hour data

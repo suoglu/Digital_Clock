@@ -10,7 +10,7 @@
  *               format                             *
  * ------------------------------------------------ */
 
-module h24Toh12(
+module h24Toh12Hex(
   input [4:0] hour24,
   output nAM_PM,
   output [3:0] hour12);

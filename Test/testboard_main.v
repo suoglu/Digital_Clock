@@ -8,7 +8,7 @@
  * ------------------------------------------------ */
 //  `include "Source/clockwork.v"
 //  `include "Source/alarm.v"
-//  `include "Source/date_module.v"
+//  `include "Source/clockcalendar.v"
 //  `include "Source/h24toh12.v"
 //  `include "Test/ssd_util.v"
 //  `include "Test/btn_debouncer.v"
@@ -291,9 +291,9 @@ module board(
 
   //UUTs
   alarm clockAlarm(clk, rst, en_in, {hour_out,min_out}, alarm_buff, set_time, ring, end_ring);
-  clockWork clockW(clk_1hz, time_buff, time_out, time_ow);
-  date_module dateC(clk, hour_out, date_buff, date_out, date_ow);
-  h24Toh12 hourConv(hour_out, dp, hour12_out);
+  clockWorkHex clockW(clk_1hz, time_buff, time_out, time_ow);
+  clockCalendarHex dateC(clk, hour_out, date_buff, date_out, date_ow);
+  h24Toh12Hex hourConv(hour_out, dp, hour12_out);
 endmodule
 
 module clkGen1Hz(clk, rst, clk1hz);

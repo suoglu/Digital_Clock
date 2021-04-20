@@ -9,7 +9,7 @@
  * Description : Time keeping module for a clock    *
  * ------------------------------------------------ */
 
-module clockWork(clk_1hz, time_in, time_out, time_ow);
+module clockWorkHex(clk_1hz, time_in, time_out, time_ow);
   input clk_1hz, time_ow; //1 Hz clock (clock), Time overwrite (asynchronous reset)
   //Time signal format: hhhhh_mmmmmm_ssssss
   input [16:0] time_in; //time input

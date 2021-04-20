@@ -17,7 +17,7 @@ module tb_h24h12();
   wire nAM_PM;
   wire [3:0] hour12;
 
-  h24Toh12 uut(hour24,nAM_PM,hour12);
+  h24Toh12Hex uut(hour24,nAM_PM,hour12);
   
   always #100 hour24 = (hour24 == 23) ? 0 : hour24+1;
 

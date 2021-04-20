@@ -23,8 +23,8 @@ module tb_bsc();
     wire [3:0] month;
     wire [11:0] year;
     
-    clockWork uut0(clk_clock, time_in, time_out, time_ow);
-    date_module uut1(clk_date, hour_in, date_in, date_out, date_ow);
+    clockWorkHex uut0(clk_clock, time_in, time_out, time_ow);
+    clockCalendarHex uut1(clk_date, hour_in, date_in, date_out, date_ow);
 
     assign {hour, min, sec} = time_out;
     assign {day, month, year} = date_out;
