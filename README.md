@@ -105,9 +105,9 @@ In width column: Hexadecimal/Decimal
 
 |   Port   |  Type | Width |  Description |
 | :------: | :----: | :----: |  ------    |
-| `hour24` |  I  | 5 | Hour in 24 hour format |
+| `hour24` |  I  | 5/6 | Hour in 24 hour format |
 | `nAM_PM` |  O  | 1 | AM/PM indicator, High when PM |
-| `hour12` |  O  | 4 | Hour in 12 hour format |
+| `hour12` |  O  | 4/5 | Hour in 12 hour format |
 
 ## Simulation
 
@@ -115,7 +115,7 @@ In width column: Hexadecimal/Decimal
 
 [`testbench_alarm.v`](testbench_alarm.v) is used to simulate `alarm` @ [`alarm.v`](Source/alarm.v)
 
-[`testbench_h24h12.v`](testbench_h24h12.v) is used to simulate `h24Toh12Hex` @ [`h24toh12.v`](Source/h24toh12.v)
+[`testbench_h24h12.v`](testbench_h24h12.v) is used to simulate `h24Toh12Hex` and `h24Toh12Dec` @ [`h24toh12.v`](Source/h24toh12.v)
 
 [`testbench_decClkwork.v`](Sim/testbench_decClkwork.v) is used to simulate `clockWorkDec` @  [`clockwork.v`](Source/clockwork.v)
 
@@ -198,6 +198,6 @@ Anything that is not taken from the switches conneced to 0.
 - [`clockwork.v`](Source/clockwork.v): 21 April 2021 with [Icarus Verilog](http://iverilog.icarus.com/)
 - [`clockcalendar.v`](Source/clockcalendar.v): 8 April 2020 with [Icarus Verilog](http://iverilog.icarus.com/)
 - [`alarm.v`](Source/alarm.v): 28 April 2020 with [Icarus Verilog](http://iverilog.icarus.com/)
-- [`h24toh12.v`](Source/h24toh12.v): 24 February 2021 with [Icarus Verilog](http://iverilog.icarus.com/)
+- [`h24toh12.v`](Source/h24toh12.v): 21 April 2021 with [Icarus Verilog](http://iverilog.icarus.com/)
 
 **Last Test:** 20 March 2021, on [Digilent Basys 3](https://reference.digilentinc.com/reference/programmable-logic/basys-3/reference-manual).
