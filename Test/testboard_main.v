@@ -17,6 +17,7 @@
 module board(
   input clk,
   input rst,
+  output clk_1hz,
   input btnU, //Set Time
   input btnL, //Set Date
   input btnR, //Set Alarm
@@ -25,7 +26,28 @@ module board(
   output [15:0] led,
   output [6:0] seg,
   output [3:0] an,
-  output dp); //AM/PM
+  output dp,//AM/PM
+  //Following ports to uuts
+  //Alarm
+  output alarm_en_in,
+  output [10:0] alarm_time_in,
+  output [10:0] alarm_time_set_in,
+  output alarm_set_time,
+  input alarm_ring,
+  output alarm_end_ring,
+  //Clockwork
+  output [16:0] clock_time_in,
+  input [16:0] clock_time_out,
+  output clock_time_ow,
+  //Calender
+  output [4:0] calender_hour_in,
+  output [20:0] calender_date_in,
+  input [20:0] calender_date_out,
+  output calender_date_ow,
+  //AM-PM convert
+  output [4:0] h24Toh12_hour24,
+  input h24Toh12_nAM_PM,
+  input [3:0] h24Toh12_hour12); 
   wire clk_1hz, time_ow, date_ow, en_in, set_time, ring, end_ring;
   wire [16:0] time_in, time_out;
   wire [20:0] date_in, date_out;
@@ -289,11 +311,27 @@ module board(
   //Clock generator
   clkGen1Hz secondGen(clk, rst, clk_1hz);
 
-  //UUTs
-  alarm clockAlarm(clk, rst, en_in, {hour_out,min_out}, alarm_buff, set_time, ring, end_ring);
-  clockWorkHex clockW(clk_1hz, time_buff, time_out, time_ow);
-  clockCalendarHex dateC(clk, hour_out, date_buff, date_out, date_ow);
-  h24Toh12Hex hourConv(hour_out, dp, hour12_out);
+  //UUT signals
+  //Alarm
+  assign alarm_en_in = en_in;
+  assign alarm_time_in = {hour_out,min_out};
+  assign alarm_time_set_in = alarm_buff;
+  assign alarm_set_time = set_time;
+  assign ring = alarm_ring;
+  assign alarm_end_ring = end_ring;
+  //Clockwork
+  assign clock_time_in = time_buff;
+  assign time_out = clock_time_out;
+  assign clock_time_ow = time_ow;
+  //Calender
+  assign calender_hour_in = hour_out;
+  assign calender_date_in = date_buff;
+  assign date_out = calender_date_out;
+  assign calender_date_ow = date_ow;
+  //AM-PM convert
+  assign h24Toh12_hour24 = hour_out;
+  assign dp = h24Toh12_nAM_PM;
+  assign hour12_out = h24Toh12_hour12;
 endmodule
 
 module clkGen1Hz(clk, rst, clk1hz);
