@@ -101,7 +101,7 @@ module clockWorkDec(clk_1hz, time_in, time_out, time_ow);
               begin
                 sec_reg <= 7'd0;
               end
-            7'hx9:
+            7'h?9:
               begin
                 sec_reg <= {(sec_reg[6:4]+3'd1),4'h0};
               end
@@ -129,7 +129,7 @@ module clockWorkDec(clk_1hz, time_in, time_out, time_ow);
                   begin
                     min_reg <= 7'h0;
                   end
-                7'hx9:
+                7'h?9:
                   begin
                     min_reg <= {(min_reg[6:4]+3'd1),4'h0};
                   end
@@ -158,7 +158,7 @@ module clockWorkDec(clk_1hz, time_in, time_out, time_ow);
                   begin
                     hour_reg <= 6'd0;
                   end
-                6'b0x1001: //09 & 19
+                6'b0?1001: //09 & 19
                   begin
                     hour_reg <= {(hour_reg[5:4]+3'd1),4'd0};
                   end
