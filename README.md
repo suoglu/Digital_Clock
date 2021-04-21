@@ -31,17 +31,21 @@ This project is a digital clock with date function. Currently works with 24h tim
 Functionalities are seperated into different files, follows as:
 
 - [`clockwork.v`](Source/clockwork.v): Hours, Minutes and Seconds  
-- [`date_module.v`](Source/date_module.v): Days, Months and Years
+- [`clockcalendar.v`](Source/clockcalendar.v): Days, Months and Years
 - [`alarm.v`](Source/alarm.v): Alarm with an enable control
 - [`h24toh12.v`](Source/h24toh12.v): 24 hour to 12 hour converter
+
+Decimal modules always keep values in a decimal representation. e.g. fourteen is represented as *0x0E* in hexadecimal modules and as *0x14* in decimal modules.
 
 **`clockWork`:**
 
 This module provides basic time functionality. It uses a 1 Hz clock. This module does not provide a seperate reset signal, thus resetting should be done via time overwrite signal, `time_ow`.
 
-Time is kept in 17 bits. Most significant 5 bits represent hour, following 6 bits represent minute and 6 least significant bits represent seconds.
+In hexadecimal module, time is kept in 17 bits. Most significant 5 bits represent hour, following 6 bits represent minute and 6 least significant bits represent seconds.
 
-**`date_module`:**
+In decimal module, time is kept in 20 bits. Most significant 6 bits represent hour, following 7 bits represent minute and 7 least significant bits represent seconds.
+
+**`clockcalendar`:**
 
 This module provides an "add-on" to provide date functionality. It uses current hour to keep track of date. Similar to `clockWork` module, resetting should be done via date overwrite signal, `date_ow`.
 
@@ -64,11 +68,11 @@ Combinational "add-on" module to convert 24 hour format to 12 hour format.
 |   Port   |  Type | Width |  Description |
 | :------: | :----: | :----: |  ------    |
 | `clk_1hz` |  I  | 1 | 1 Hz Clock |
-| `time_in` |  I  | 17 | Time input |
-| `time_out` |  O  | 17 | Time output |
+| `time_in` |  I  | 17/20 | Time input |
+| `time_out` |  O  | 17/20 | Time output |
 | `time_ow` |  I  | 1 | Time overwrite |
 
-**`date_module`:**
+**`clockcalendar`:**
 
 |   Port   |  Type | Width |  Description |
 | :------: | :----: | :----: |  ------    |
@@ -103,7 +107,7 @@ Combinational "add-on" module to convert 24 hour format to 12 hour format.
 
 ## Simulation
 
-[`testbench_basic.v`](Sim/testbench_basic.v) is used to simulate [`clockwork.v`](Source/clockwork.v) and [`date_module.v`](Source/date_module.v)
+[`testbench_basic.v`](Sim/testbench_basic.v) is used to simulate [`clockwork.v`](Source/clockwork.v) and [`clockcalendar.v`](Source/clockcalendar.v)
 
 [`testbench_alarm.v`](testbench_alarm.v) is used to simulate [`alarm.v`](Source/alarm.v)
 
@@ -111,9 +115,9 @@ Combinational "add-on" module to convert 24 hour format to 12 hour format.
 
 ## Test
 
-### Test 1 (on 20 March 2021)
+### Test 1 Hex modules (on 20 March 2021)
 
-Modules in [`clockwork.v`](Source/clockwork.v), [`date_module.v`](Source/date_module.v), [`alarm.v`](Source/alarm.v) and [`h24toh12.v`](Source/h24toh12.v) are tested with [`testboard_main.v`](Test/testboard_main.v) and [`Basys3.xdc`](Test/Basys3.xdc). Special cases and a few examples of orinary cases are tested.
+Modules in [`clockwork.v`](Source/clockwork.v), [`clockcalendar.v`](Source/clockcalendar.v), [`alarm.v`](Source/alarm.v) and [`h24toh12.v`](Source/h24toh12.v) are tested with [`testboard_main.v`](Test/testboard_main.v) and [`Basys3.xdc`](Test/Basys3.xdc). Special cases and a few examples of orinary cases are tested.
 
 **States:**
 
@@ -153,7 +157,7 @@ Anything that is not taken from the switches conneced to 0.
   - New Minute
   - New Hour
   - New Day
-- [`date_module.v`](Source/date_module.v):
+- [`clockcalendar.v`](Source/clockcalendar.v):
   - New Year
   - Ordinary February
   - Special Case February
@@ -167,12 +171,26 @@ Anything that is not taken from the switches conneced to 0.
   - Two random cases for both AM and PM tested.
   - Midnight and Noon are tested.
 
+**(Synthesized) Utilization on Artix-7 XC7A35T-1CPG236C**:
+
+- [`clockwork.v`](Source/clockwork.v):
+  - Slice LUTs: 80
+  - Slice Registers: 51
+- [`clockcalendar.v`](Source/clockcalendar.v):
+  - Slice LUTs: 106
+  - Slice Registers: 78
+- [`alarm.v`](Source/alarm.v):
+  - Slice LUTs: 6
+  - Slice Registers: 13
+- [`h24toh12.v`](Source/h24toh12.v):
+  - Slice LUTs: 2
+
 ## Status
 
 **Last Simulation:**
 
 - [`clockwork.v`](Source/clockwork.v): 5 April 2020 with Icarus Verilog  
-- [`date_module.v`](Source/date_module.v): 8 April 2020 with Icarus Verilog
+- [`clockcalendar.v`](Source/clockcalendar.v): 8 April 2020 with Icarus Verilog
 - [`alarm.v`](Source/alarm.v): 28 April 2020 with Icarus Verilog
 - [`h24toh12.v`](Source/h24toh12.v): 24 February 2021 with Icarus Verilog
 
