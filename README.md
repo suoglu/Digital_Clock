@@ -63,6 +63,10 @@ Combinational "add-on" module to convert 24 hour format to 12 hour format.
 
 ## Port Descriptions
 
+I: Input O: Output
+
+In width column: Hexadecimal/Decimal
+
 **`clockWork`:**
 
 |   Port   |  Type | Width |  Description |
@@ -107,17 +111,19 @@ Combinational "add-on" module to convert 24 hour format to 12 hour format.
 
 ## Simulation
 
-[`testbench_basic.v`](Sim/testbench_basic.v) is used to simulate [`clockwork.v`](Source/clockwork.v) and [`clockcalendar.v`](Source/clockcalendar.v)
+[`testbench_basic.v`](Sim/testbench_basic.v) is used to simulate `clockWorkHex` @  [`clockwork.v`](Source/clockwork.v) and `clockCalendarHex` @ [`clockcalendar.v`](Source/clockcalendar.v)
 
-[`testbench_alarm.v`](testbench_alarm.v) is used to simulate [`alarm.v`](Source/alarm.v)
+[`testbench_alarm.v`](testbench_alarm.v) is used to simulate `alarm` @ [`alarm.v`](Source/alarm.v)
 
-[`testbench_alarm.v`](testbench_h24h12.v) is used to simulate [`h24toh12.v`](Source/h24toh12.v)
+[`testbench_h24h12.v`](testbench_h24h12.v) is used to simulate `h24Toh12Hex` @ [`h24toh12.v`](Source/h24toh12.v)
+
+[`testbench_decClkwork.v`](Sim/testbench_decClkwork.v) is used to simulate `clockWorkDec` @  [`clockwork.v`](Source/clockwork.v)
 
 ## Test
 
 ### Test 1 Hex modules (on 20 March 2021)
 
-Modules in [`clockwork.v`](Source/clockwork.v), [`clockcalendar.v`](Source/clockcalendar.v), [`alarm.v`](Source/alarm.v) and [`h24toh12.v`](Source/h24toh12.v) are tested with [`testboard_main.v`](Test/testboard_main.v) and [`Basys3.xdc`](Test/Basys3.xdc). Special cases and a few examples of orinary cases are tested.
+Hexadecimal modules in [`clockwork.v`](Source/clockwork.v), [`clockcalendar.v`](Source/clockcalendar.v), [`alarm.v`](Source/alarm.v) and [`h24toh12.v`](Source/h24toh12.v) are tested with [`testboard_main.v`](Test/testboard_main.v) and [`Basys3.xdc`](Test/Basys3.xdc). Special cases and a few examples of orinary cases are tested.
 
 **States:**
 
@@ -152,12 +158,12 @@ Anything that is not taken from the switches conneced to 0.
 
 **Tested Cases**:
 
-- [`clockwork.v`](Source/clockwork.v):
+- `clockWorkHex` @ [`clockwork.v`](Source/clockwork.v):
   - Seconds in Minute
   - New Minute
   - New Hour
   - New Day
-- [`clockcalendar.v`](Source/clockcalendar.v):
+- `clockCalendarHex` @ [`clockcalendar.v`](Source/clockcalendar.v):
   - New Year
   - Ordinary February
   - Special Case February
@@ -165,33 +171,33 @@ Anything that is not taken from the switches conneced to 0.
   - End of a random month with 31 days before July
   - End of a random month with 30 days after August
   - End of a random month with 31 days after August
-- [`alarm.v`](Source/alarm.v):
+- `alarm` @ [`alarm.v`](Source/alarm.v):
   - Tested for one case when enabled and one disabled.
-- [`h24toh12.v`](Source/h24toh12.v):
+- `h24Toh12Hex` @ [`h24toh12.v`](Source/h24toh12.v):
   - Two random cases for both AM and PM tested.
   - Midnight and Noon are tested.
 
 **(Synthesized) Utilization on Artix-7 XC7A35T-1CPG236C**:
 
-- [`clockwork.v`](Source/clockwork.v):
+- `clockWorkHex` @ [`clockwork.v`](Source/clockwork.v):
   - Slice LUTs: 80
   - Slice Registers: 51
-- [`clockcalendar.v`](Source/clockcalendar.v):
+- `clockCalendarHex` @ [`clockcalendar.v`](Source/clockcalendar.v):
   - Slice LUTs: 106
   - Slice Registers: 78
-- [`alarm.v`](Source/alarm.v):
+- `alarm` @ [`alarm.v`](Source/alarm.v):
   - Slice LUTs: 6
   - Slice Registers: 13
-- [`h24toh12.v`](Source/h24toh12.v):
+- `h24Toh12Hex` @ [`h24toh12.v`](Source/h24toh12.v):
   - Slice LUTs: 2
 
 ## Status
 
 **Last Simulation:**
 
-- [`clockwork.v`](Source/clockwork.v): 5 April 2020 with Icarus Verilog  
-- [`clockcalendar.v`](Source/clockcalendar.v): 8 April 2020 with Icarus Verilog
-- [`alarm.v`](Source/alarm.v): 28 April 2020 with Icarus Verilog
-- [`h24toh12.v`](Source/h24toh12.v): 24 February 2021 with Icarus Verilog
+- [`clockwork.v`](Source/clockwork.v): 21 April 2021 with [Icarus Verilog](http://iverilog.icarus.com/)
+- [`clockcalendar.v`](Source/clockcalendar.v): 8 April 2020 with [Icarus Verilog](http://iverilog.icarus.com/)
+- [`alarm.v`](Source/alarm.v): 28 April 2020 with [Icarus Verilog](http://iverilog.icarus.com/)
+- [`h24toh12.v`](Source/h24toh12.v): 24 February 2021 with [Icarus Verilog](http://iverilog.icarus.com/)
 
 **Last Test:** 20 March 2021, on [Digilent Basys 3](https://reference.digilentinc.com/reference/programmable-logic/basys-3/reference-manual).
