@@ -23,7 +23,7 @@ module tb_alrm();
     assign time_in = {hour, min};
     assign time_set_in = {hour_set, min_set};
 
-    alarm uut(clk, rst, en_in, time_in, time_set_in, set_time, ring, end_ring);
+    alarmHex uut(clk, rst, en_in, time_in, time_set_in, set_time, ring, end_ring);
 
     always #5  clk = ~clk; //10 cycle is 10ns
 

@@ -57,6 +57,8 @@ This module provides an "add-on" alarm. Alarm can be enabled via `en_in`. Signal
 
 Alarm is not sensitive to the seconds.
 
+File [`alarm.v`](Source/alarm.v) contains two modules `alarmHex` and `alarmDec`, one for hexadecimal other one for decimal modules. However only diffrence between those modules is the size of the registers.
+
 **`h24Toh12`:**
 
 Combinational "add-on" module to convert 24 hour format to 12 hour format.
@@ -95,8 +97,8 @@ In width column: Hexadecimal/Decimal
 | `clk` |  I  | 1 | System Clock |
 | `rst` |  I  | 1 | System Reset |
 | `en_in` |  I  | 1 | Enable Alarm |
-| `time_in` |  I  | 11 | Time input (No seconds) |
-| `time_set_in` |  I  | 11 | Time setting input (No seconds) |
+| `time_in` |  I  | 11/13 | Time input (No seconds) |
+| `time_set_in` |  I  | 11/13 | Time setting input (No seconds) |
 | `set_time` |  I  | 1 | Set Alarm Time |
 | `ring` |  0  | 1 | Alarm signal |
 | `end_ring` |  I  | 1 | Stop Alarm |
@@ -113,7 +115,7 @@ In width column: Hexadecimal/Decimal
 
 [`testbench_basic.v`](Sim/testbench_basic.v) is used to simulate `clockWorkHex` @  [`clockwork.v`](Source/clockwork.v) and `clockCalendarHex` @ [`clockcalendar.v`](Source/clockcalendar.v)
 
-[`testbench_alarm.v`](testbench_alarm.v) is used to simulate `alarm` @ [`alarm.v`](Source/alarm.v)
+[`testbench_alarm.v`](testbench_alarm.v) is used to simulate `alarmHex` @ [`alarm.v`](Source/alarm.v)
 
 [`testbench_h24h12.v`](testbench_h24h12.v) is used to simulate `h24Toh12Hex` and `h24Toh12Dec` @ [`h24toh12.v`](Source/h24toh12.v)
 
