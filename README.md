@@ -41,15 +41,17 @@ Decimal modules always keep values in a decimal representation. e.g. fourteen is
 
 This module provides basic time functionality. It uses a 1 Hz clock. This module does not provide a seperate reset signal, thus resetting should be done via time overwrite signal, `time_ow`.
 
-In hexadecimal module, time is kept in 17 bits. Most significant 5 bits represent hour, following 6 bits represent minute and 6 least significant bits represent seconds.
+In hexadecimal module, `clockWorkHex`, time is kept in 17 bits. Most significant 5 bits represent hour, following 6 bits represent minute and 6 least significant bits represent seconds.
 
-In decimal module, time is kept in 20 bits. Most significant 6 bits represent hour, following 7 bits represent minute and 7 least significant bits represent seconds.
+In decimal module, `clockWorkDec`, time is kept in 20 bits. Most significant 6 bits represent hour, following 7 bits represent minute and 7 least significant bits represent seconds.
 
 **`clockcalendar`:**
 
 This module provides an "add-on" to provide date functionality. It uses current hour to keep track of date. Similar to `clockWork` module, resetting should be done via date overwrite signal, `date_ow`.
 
-Date is kept in 9 + year bits. Year bits determined via parameter `YEARRES`. Most significant 5 bits represent day, following 4 bits represent month and remaining bits represent year. Default value for `YEARRES` is 12 bits.
+In hexadecimal module, `clockCalendarHex`, date is kept in 9 + year bits. Year bits determined via parameter `YEARRES`. Most significant 5 bits represent day, following 4 bits represent month and remaining bits represent year. Default value for `YEARRES` is 12 bits.
+
+Two decimal modules are designed. At both of the modules, most significant 6 bits represent day, following 5 bits represent month and remaining bits represent year. In `clockCalendarDec4`, year is kept in 4 digits with 14 bits; and in `clockCalendarDec2`, year is kept in 2 digits with 8 bits.
 
 **`alarm`:**
 
@@ -83,9 +85,9 @@ In width column: Hexadecimal/Decimal
 |   Port   |  Type | Width |  Description |
 | :------: | :----: | :----: |  ------    |
 | `clk` |  I  | 1 | System Clock |
-| `hour_in` |  I  | 5 | Current hour |
-| `date_in` |  I  | `YEARRES`+9 | Date input |
-| `date_out` |  O  | `YEARRES`+9 | Date output |
+| `hour_in` |  I  | 5/6 | Current hour |
+| `date_in` |  I  | `YEARRES`+9/25/19 | Date input |
+| `date_out` |  O  | `YEARRES`+9/25/19  | Date output |
 | `date_ow` |  I  | 1 | Date overwrite |
 
 `YEARRES` parameter determines the size of year register, default is 12 bits.
@@ -120,6 +122,8 @@ In width column: Hexadecimal/Decimal
 [`testbench_h24h12.v`](testbench_h24h12.v) is used to simulate `h24Toh12Hex` and `h24Toh12Dec` @ [`h24toh12.v`](Source/h24toh12.v)
 
 [`testbench_decClkwork.v`](Sim/testbench_decClkwork.v) is used to simulate `clockWorkDec` @  [`clockwork.v`](Source/clockwork.v)
+
+[`testbench_decCal.v`](Sim/testbench_decCal.v) is used to simulate `clockCalendarDec4` and `clockCalendarDec2` @ [`clockcalendar.v`](Source/clockcalendar.v)
 
 ## Test
 
@@ -198,7 +202,7 @@ Anything that is not taken from the switches conneced to 0.
 **Last Simulation:**
 
 - [`clockwork.v`](Source/clockwork.v): 21 April 2021 with [Icarus Verilog](http://iverilog.icarus.com/)
-- [`clockcalendar.v`](Source/clockcalendar.v): 8 April 2020 with [Icarus Verilog](http://iverilog.icarus.com/)
+- [`clockcalendar.v`](Source/clockcalendar.v): 22 April 2021 with [Icarus Verilog](http://iverilog.icarus.com/)
 - [`alarm.v`](Source/alarm.v): 28 April 2020 with [Icarus Verilog](http://iverilog.icarus.com/)
 - [`h24toh12.v`](Source/h24toh12.v): 21 April 2021 with [Icarus Verilog](http://iverilog.icarus.com/)
 
