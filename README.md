@@ -191,11 +191,56 @@ Anything that is not taken from the switches conneced to 0.
 - `clockCalendarHex` @ [`clockcalendar.v`](Source/clockcalendar.v):
   - Slice LUTs: 106
   - Slice Registers: 78
-- `alarm` @ [`alarm.v`](Source/alarm.v):
+- `alarmHex` @ [`alarm.v`](Source/alarm.v):
   - Slice LUTs: 6
   - Slice Registers: 13
 - `h24Toh12Hex` @ [`h24toh12.v`](Source/h24toh12.v):
   - Slice LUTs: 2
+
+### Test 2 Dec modules (on 22 April 2021)
+
+[`testmodule_dec.v`](Test/testmodule_dec.v) includes a test module for
+`clockWorkDec` @ [`clockwork.v`](Source/clockwork.v),  `alarmDec` @ [`alarm.v`](Source/alarm.v), `h24Toh12Dec` @ [`h24toh12.v`](Source/h24toh12.v), and `clockCalendar2Dec` and `clockCalendar4Dec` @ [`clockcalendar.v`](Source/clockcalendar.v). Similar logic as Hexadecimal module tests ([`testboard_main.v`](Test/testboard_main.v)) and same constrains ([`Basys3.xdc`](Test/Basys3.xdc)) is used for testing. Register sizes changed accordingly. Each module added as a seperate block and connected to test module in block desing. One can refer Test 1 for more information about test logic.
+
+**Tested Cases**:
+
+- `clockWorkDec` @ [`clockwork.v`](Source/clockwork.v):
+  - Seconds in Minute
+  - New Minute
+  - New Hour
+  - New Day
+- `clockCalendar2Dec` @ [`clockcalendar.v`](Source/clockcalendar.v):
+  - New Year
+  - Ordinary February
+  - Special Case February
+  - End of a random month with 30 days before July
+  - End of a random month with 31 days before July
+  - End of a random month with 30 days after August
+  - End of a random month with 31 days after August
+- `alarmDec` @ [`alarm.v`](Source/alarm.v):
+  - Tested for one case when enabled and one disabled.
+- `h24Toh12Dec` @ [`h24toh12.v`](Source/h24toh12.v):
+  - Two random cases for both AM and PM tested.
+  - Midnight and Noon are tested.
+
+**Note:** `clockCalendar4Dec` module did not update it's values with `date_ow` singnal in test.
+
+**(Synthesized) Utilization on Artix-7 XC7A35T-1CPG236C**:
+
+- `clockWorkDec` @ [`clockwork.v`](Source/clockwork.v):
+  - Slice LUTs: 90
+  - Slice Registers: 60
+- `clockCalendar2Dec` @ [`clockcalendar.v`](Source/clockcalendar.v):
+  - Slice LUTs: 109
+  - Slice Registers: 75
+- `clockCalendar4Dec` @ [`clockcalendar.v`](Source/clockcalendar.v):
+  - Slice LUTs: 161
+  - Slice Registers: 93
+- `alarmDec` @ [`alarm.v`](Source/alarm.v):
+  - Slice LUTs: 7
+  - Slice Registers: 15
+- `h24Toh12Dec` @ [`h24toh12.v`](Source/h24toh12.v):
+  - Slice LUTs: 4
 
 ## Status
 
@@ -206,4 +251,8 @@ Anything that is not taken from the switches conneced to 0.
 - [`alarm.v`](Source/alarm.v): 28 April 2020 with [Icarus Verilog](http://iverilog.icarus.com/)
 - [`h24toh12.v`](Source/h24toh12.v): 21 April 2021 with [Icarus Verilog](http://iverilog.icarus.com/)
 
-**Last Test:** 20 March 2021, on [Digilent Basys 3](https://reference.digilentinc.com/reference/programmable-logic/basys-3/reference-manual).
+**Last Test:**
+
+- Hexadecimal modules: 20 March 2021, on [Digilent Basys 3](https://reference.digilentinc.com/reference/programmable-logic/basys-3/reference-manual).
+
+- Decimal modules: 22 April 2021, on [Digilent Basys 3](https://reference.digilentinc.com/reference/programmable-logic/basys-3/reference-manual).
