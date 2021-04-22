@@ -40,7 +40,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 
 # The design that will be created by this Tcl script contains the following 
 # module references:
-# alarm, board, clockCalendarHex, clockWorkHex, h24Toh12Hex
+# alarmHex, board, clockCalendarHex, clockWorkHex, h24Toh12Hex
 
 # Please add the sources of those modules before sourcing this Tcl script.
 
@@ -131,7 +131,7 @@ set bCheckIPsPassed 1
 set bCheckModules 1
 if { $bCheckModules == 1 } {
    set list_check_mods "\ 
-alarm\
+alarmHex\
 board\
 clockCalendarHex\
 clockWorkHex\
@@ -212,13 +212,13 @@ proc create_root_design { parentCell } {
   set seg [ create_bd_port -dir O -from 6 -to 0 -type data seg ]
   set sw [ create_bd_port -dir I -from 15 -to 0 -type data sw ]
 
-  # Create instance: alarm_0, and set properties
-  set block_name alarm
-  set block_cell_name alarm_0
-  if { [catch {set alarm_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+  # Create instance: alarmHex_0, and set properties
+  set block_name alarmHex
+  set block_cell_name alarmHex_0
+  if { [catch {set alarmHex_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
      catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
      return 1
-   } elseif { $alarm_0 eq "" } {
+   } elseif { $alarmHex_0 eq "" } {
      catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
      return 1
    }
@@ -268,14 +268,14 @@ proc create_root_design { parentCell } {
    }
   
   # Create port connections
-  connect_bd_net -net Net [get_bd_ports clk] [get_bd_pins alarm_0/clk] [get_bd_pins board_0/clk] [get_bd_pins clockCalendarHex_0/clk]
-  connect_bd_net -net Net1 [get_bd_ports rst] [get_bd_pins alarm_0/rst] [get_bd_pins board_0/rst]
-  connect_bd_net -net alarm_0_ring [get_bd_pins alarm_0/ring] [get_bd_pins board_0/alarm_ring]
-  connect_bd_net -net board_0_alarm_en_in [get_bd_pins alarm_0/en_in] [get_bd_pins board_0/alarm_en_in]
-  connect_bd_net -net board_0_alarm_end_ring [get_bd_pins alarm_0/end_ring] [get_bd_pins board_0/alarm_end_ring]
-  connect_bd_net -net board_0_alarm_set_time [get_bd_pins alarm_0/set_time] [get_bd_pins board_0/alarm_set_time]
-  connect_bd_net -net board_0_alarm_time_in [get_bd_pins alarm_0/time_in] [get_bd_pins board_0/alarm_time_in]
-  connect_bd_net -net board_0_alarm_time_set_in [get_bd_pins alarm_0/time_set_in] [get_bd_pins board_0/alarm_time_set_in]
+  connect_bd_net -net Net [get_bd_ports clk] [get_bd_pins alarmHex_0/clk] [get_bd_pins board_0/clk] [get_bd_pins clockCalendarHex_0/clk]
+  connect_bd_net -net Net1 [get_bd_ports rst] [get_bd_pins alarmHex_0/rst] [get_bd_pins board_0/rst]
+  connect_bd_net -net alarmHex_0_ring [get_bd_pins alarmHex_0/ring] [get_bd_pins board_0/alarm_ring]
+  connect_bd_net -net board_0_alarm_en_in [get_bd_pins alarmHex_0/en_in] [get_bd_pins board_0/alarm_en_in]
+  connect_bd_net -net board_0_alarm_end_ring [get_bd_pins alarmHex_0/end_ring] [get_bd_pins board_0/alarm_end_ring]
+  connect_bd_net -net board_0_alarm_set_time [get_bd_pins alarmHex_0/set_time] [get_bd_pins board_0/alarm_set_time]
+  connect_bd_net -net board_0_alarm_time_in [get_bd_pins alarmHex_0/time_in] [get_bd_pins board_0/alarm_time_in]
+  connect_bd_net -net board_0_alarm_time_set_in [get_bd_pins alarmHex_0/time_set_in] [get_bd_pins board_0/alarm_time_set_in]
   connect_bd_net -net board_0_an [get_bd_ports an] [get_bd_pins board_0/an]
   connect_bd_net -net board_0_calender_date_in [get_bd_pins board_0/calender_date_in] [get_bd_pins clockCalendarHex_0/date_in]
   connect_bd_net -net board_0_calender_date_ow [get_bd_pins board_0/calender_date_ow] [get_bd_pins clockCalendarHex_0/date_ow]
