@@ -5,6 +5,7 @@
  * File        : clockwork.v                        *
  * Author      : Yigit Suoglu                       *
  * Last Edit   : 21/04/2021                         *
+ * Licence     : CERN-OHL-W                         *
  * ------------------------------------------------ *
  * Description : Time keeping module for a clock    *
  * ------------------------------------------------ */

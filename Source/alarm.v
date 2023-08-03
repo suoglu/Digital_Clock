@@ -5,6 +5,7 @@
  * File        : alarm.v                            *
  * Author      : Yigit Suoglu                       *
  * Last Edit   : 28/04/2020                         *
+ * Licence     : CERN-OHL-W                         *
  * ------------------------------------------------ *
  * Description : A clock alarm module               *
  * ------------------------------------------------ */

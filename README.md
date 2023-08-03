@@ -16,6 +16,7 @@
 4. Simulation
 5. Test
 6. Status
+7. Licence
 
 [![Repo on GitLab](https://img.shields.io/badge/repo-GitLab-6C488A.svg)](https://gitlab.com/suoglu/digitalClock)
 [![Repo on GitHub](https://img.shields.io/badge/repo-GitHub-3D76C2.svg)](https://github.com/suoglu/Digital_Clock)
@@ -256,3 +257,7 @@ Anything that is not taken from the switches conneced to 0.
 - Hexadecimal modules: 20 March 2021, on [Digilent Basys 3](https://reference.digilentinc.com/reference/programmable-logic/basys-3/reference-manual).
 
 - Decimal modules: 22 April 2021, on [Digilent Basys 3](https://reference.digilentinc.com/reference/programmable-logic/basys-3/reference-manual).
+
+## Licence
+
+CERN Open Hardware Licence Version 2 - Weakly Reciprocal

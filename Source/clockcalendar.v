@@ -5,6 +5,7 @@
  * File        : clockcalendar.v                    *
  * Author      : Yigit Suoglu                       *
  * Last Edit   : 22/04/2021                         *
+ * Licence     : CERN-OHL-W                         *
  * ------------------------------------------------ *
  * Description : Keep date with respect to hour     *
  * ------------------------------------------------ */

@@ -5,6 +5,7 @@
  * File        : h24toh12.v                         *
  * Author      : Yigit Suoglu                       *
  * Last Edit   : 24/02/2021                         *
+ * Licence     : CERN-OHL-W                         *
  * ------------------------------------------------ *
  * Description : Convert 24 hour format to 12 hour  *
  *               format                             *
